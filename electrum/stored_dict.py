@@ -103,7 +103,7 @@ class BaseStoredObject:
     _key: FLEX_KEY = None
     _parent: Optional['BaseStoredObject'] = None
     _lock: threading.RLock = None
-    _path = None
+    #_path = None
 
     def set_db(self, db):
         self._db = db
@@ -121,8 +121,8 @@ class BaseStoredObject:
 
     @property
     def path(self) -> Sequence[FLEX_KEY] | None:
-        if self._path is not None:
-            return self._path
+        #if self._path is not None:
+        #    return self._path
         # return None iff we are pruned from root
         x = self
         s = [x._key]
@@ -130,12 +130,13 @@ class BaseStoredObject:
             x = x._parent
             s = [x._key] + s
         if x._key != '':
-            s = []
-            #return None
+            #s = []
+            return None
         else:
             assert self._db is not None
-        self._path = s
-        return self._path
+        return s
+        #self._path = s
+        #return self._path
 
 
 class StoredObject(BaseStoredObject):
